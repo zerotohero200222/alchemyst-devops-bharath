@@ -16,7 +16,7 @@ steps:
   args:
     - init
     - -input=false
-  dir: "terraform"
+  dir: "alchemyst-devops/terraform"
 
 # ════════════════════════════════════════
 # Terraform Validate
@@ -27,7 +27,7 @@ steps:
   entrypoint: "terraform"
   args:
     - validate
-  dir: "terraform"
+  dir: "alchemyst-devops/terraform"
 
 # ════════════════════════════════════════
 # Terraform Plan
@@ -40,7 +40,7 @@ steps:
     - plan
     - -out=tfplan
     - -input=false
-  dir: "terraform"
+  dir: "alchemyst-devops/terraform"
 
 # ════════════════════════════════════════
 # Terraform Apply
@@ -54,7 +54,7 @@ steps:
     - apply
     - -auto-approve
     - tfplan
-  dir: "terraform"
+  dir: "alchemyst-devops/terraform"
 
 # ════════════════════════════════════════
 # Smoke Test
@@ -68,34 +68,20 @@ steps:
     - |
       set -e
 
-      echo "Installing curl..."
-
       apt-get update
       apt-get install -y curl
 
-      echo "Fetching API IP..."
-
-      API_IP=$$(terraform -chdir=terraform output -raw api_public_ip)
+      API_IP=$$(terraform -chdir=alchemyst-devops/terraform output -raw api_public_ip)
 
       echo "API IP: $$API_IP"
 
-      echo "Waiting for startup scripts..."
-
       sleep 90
 
-      echo "Testing health endpoint..."
-
       curl http://$$API_IP/healthz
-
-      echo ""
-
-      echo "Testing generate endpoint..."
 
       curl -X POST http://$$API_IP/generate \
       -H "Content-Type: application/json" \
       -d '{"prompt":"Explain DevOps"}'
-
-      echo ""
 
       echo "Deployment Successful"
 
