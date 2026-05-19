@@ -96,7 +96,7 @@ def run_inference_handler(payload: Dict[str, str | List[Dict[str, Any]]]) -> Dic
     #     }
     # )
     # result["running_inference"] = new_result
-    return result
+    return {"response": result}
 
 # def add_handler(payload: dict) -> dict:
 #     a = payload.get("a", 0)
