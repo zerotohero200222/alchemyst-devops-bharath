@@ -26,6 +26,7 @@ The infrastructure automatically provisions:
 
 Architecture:
 
+```text
 Internet
    ↓
 api-vm (NGINX Reverse Proxy)
@@ -38,8 +39,8 @@ inference-vm (FastAPI Inference Service)
 ---
 
 # Repository Structure
-````text
 
+```text
 alchemyst-devops/
 │
 ├── terraform/
@@ -533,5 +534,3 @@ allowing another team member to fully redeploy and troubleshoot the system.
 
 ```
 ```
-
-
