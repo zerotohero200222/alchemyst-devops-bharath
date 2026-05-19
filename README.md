@@ -26,7 +26,6 @@ The infrastructure automatically provisions:
 
 Architecture:
 
-```text
 Internet
    ↓
 api-vm (NGINX Reverse Proxy)
