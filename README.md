@@ -38,6 +38,7 @@ inference-vm (FastAPI Inference Service)
 ---
 
 # Repository Structure
+''' text
 
 alchemyst-devops/
 │
