@@ -11,7 +11,7 @@ server {
     server_name _;
 
     location / {
-        proxy_pass http://10.0.1.3:8000;
+        proxy_pass http://10.0.1.2:8000;
         proxy_http_version 1.1;
 
         proxy_set_header Upgrade $http_upgrade;
