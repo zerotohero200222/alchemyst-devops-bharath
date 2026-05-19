@@ -37,3 +37,6 @@ output "ssh_inference_vm" {
   description = "SSH to inference-vm via IAP"
   value       = "gcloud compute ssh inference-vm --tunnel-through-iap --zone ${var.zone} --project ${var.project_id}"
 }
+output "api_public_ip" {
+  value = google_compute_instance.api_vm.network_interface[0].access_config[0].nat_ip
+}
