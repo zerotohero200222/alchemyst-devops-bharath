@@ -71,17 +71,32 @@ steps:
       apt-get update
       apt-get install -y curl
 
-      API_IP=$$(terraform -chdir=alchemyst-devops/terraform output -raw api_public_ip)
+      echo "Fetching API VM public IP..."
+
+      API_IP=$$(gcloud compute instances describe api-vm \
+        --zone us-central1-a \
+        --project $$PROJECT_ID \
+        --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
 
       echo "API IP: $$API_IP"
 
+      echo "Waiting for startup scripts..."
+
       sleep 90
 
+      echo "Testing health endpoint..."
+
       curl http://$$API_IP/healthz
+
+      echo ""
+
+      echo "Testing generate endpoint..."
 
       curl -X POST http://$$API_IP/generate \
       -H "Content-Type: application/json" \
       -d '{"prompt":"Explain DevOps"}'
+
+      echo ""
 
       echo "Deployment Successful"
 
