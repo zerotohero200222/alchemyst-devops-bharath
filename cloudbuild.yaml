@@ -7,7 +7,9 @@ options:
 
 steps:
 
+# ════════════════════════════════════════
 # Terraform Init
+# ════════════════════════════════════════
 - id: "tf-init"
   name: "hashicorp/terraform:1.6"
   entrypoint: "terraform"
@@ -16,7 +18,9 @@ steps:
     - -input=false
   dir: "terraform"
 
+# ════════════════════════════════════════
 # Terraform Validate
+# ════════════════════════════════════════
 - id: "tf-validate"
   name: "hashicorp/terraform:1.6"
   waitFor: ["tf-init"]
@@ -25,7 +29,9 @@ steps:
     - validate
   dir: "terraform"
 
+# ════════════════════════════════════════
 # Terraform Plan
+# ════════════════════════════════════════
 - id: "tf-plan"
   name: "hashicorp/terraform:1.6"
   waitFor: ["tf-validate"]
@@ -36,7 +42,9 @@ steps:
     - -input=false
   dir: "terraform"
 
+# ════════════════════════════════════════
 # Terraform Apply
+# ════════════════════════════════════════
 - id: "tf-apply"
   name: "hashicorp/terraform:1.6"
   waitFor: ["tf-plan"]
@@ -48,7 +56,9 @@ steps:
     - tfplan
   dir: "terraform"
 
+# ════════════════════════════════════════
 # Smoke Test
+# ════════════════════════════════════════
 - id: "smoke-test"
   name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
   waitFor: ["tf-apply"]
@@ -56,18 +66,36 @@ steps:
   args:
     - "-c"
     - |
-      echo "Fetching API IP..."
+      set -e
+
+      echo "Installing curl..."
 
       apt-get update
       apt-get install -y curl
 
-      API_IP=$(terraform -chdir=terraform output -raw api_public_ip)
+      echo "Fetching API IP..."
 
-      echo "API IP: $API_IP"
+      API_IP=$$(terraform -chdir=terraform output -raw api_public_ip)
+
+      echo "API IP: $$API_IP"
+
+      echo "Waiting for startup scripts..."
 
       sleep 90
 
-      curl http://$API_IP/healthz || exit 1
+      echo "Testing health endpoint..."
+
+      curl http://$$API_IP/healthz
+
+      echo ""
+
+      echo "Testing generate endpoint..."
+
+      curl -X POST http://$$API_IP/generate \
+      -H "Content-Type: application/json" \
+      -d '{"prompt":"Explain DevOps"}'
+
+      echo ""
 
       echo "Deployment Successful"
 
