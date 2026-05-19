@@ -139,7 +139,7 @@ server {
         proxy_set_header   Connection "upgrade";
         proxy_set_header   Host       $host;
         proxy_set_header   X-Real-IP  $remote_addr;
-        proxy_read_timeout 120s;
+        proxy_read_timeout 300s;
     }
 }
 NGINXEOF
