@@ -1,5 +1,3 @@
-# README.md
-
 ````markdown
 # Automated Multi-VM Microservice Infrastructure on Google Cloud Platform
 
@@ -40,120 +38,10 @@ inference-vm (FastAPI Inference Service)
 
 ---
 
-# Why This Project Exists
-
-Modern cloud applications require:
-
-* reproducible infrastructure
-* automated provisioning
-* internal service isolation
-* deployment automation
-* service persistence
-* infrastructure scalability
-
-Manual VM setup creates:
-
-* inconsistent environments
-* difficult debugging
-* deployment drift
-* non-repeatable infrastructure
-
-This project solves those issues using Terraform and startup automation.
-
----
-
-# Evaluation Criteria Satisfaction
-
-## Correctness
-
-The deployed API successfully returns inference responses through the complete microservice chain:
-
-```text
-NGINX
-→ Express API
-→ FastAPI inference service
-```
-
-Validated using:
-
-```bash
-curl -X POST http://PUBLIC_IP/generate \
--H "Content-Type: application/json" \
--d '{"prompt":"Explain DevOps"}'
-```
-
-Expected response:
-
-```json
-{
-  "response":"Inference response for: Explain DevOps"
-}
-```
-
----
-
-## Network Hygiene
-
-Only:
-
-```text
-api-vm
-```
-
-is publicly accessible.
-
-Backend services:
-
-* caller-vm
-* inference-vm
-
-remain private inside the VPC network.
-
-Internal communication occurs only through private IP addresses.
-
----
-
-## Reproducibility
-
-The infrastructure was tested by:
-
-1. Destroying all resources
-2. Re-running Terraform
-3. Recreating:
-
-   * VPC
-   * firewall rules
-   * NAT gateway
-   * VMs
-   * startup scripts
-   * APIs
-4. Verifying end-to-end API functionality
-
-This confirms the Infrastructure-as-Code deployment works from a clean environment.
-
----
-
-## Clarity
-
-This README provides:
-
-* repository setup
-* deployment steps
-* debugging steps
-* validation commands
-* architecture explanation
-* infrastructure recreation instructions
-
-allowing another team member to fully redeploy and troubleshoot the system.
-
----
-
 # Repository Structure
 
 ```text
 alchemyst-devops/
-│
-├── cloudbuild.yaml
 │
 ├── terraform/
 │   ├── main.tf
@@ -372,8 +260,6 @@ Expected:
 
 # Debugging Guide
 
----
-
 # Check VM Status
 
 Run:
@@ -562,22 +448,91 @@ terraform destroy -auto-approve
 
 ---
 
-# Conclusion
+# Evaluation Criteria Satisfaction
 
-This project demonstrates:
+## Correctness
 
-* Infrastructure as Code
-* microservice deployment
-* private networking
-* automated provisioning
-* reproducible infrastructure
-* reverse proxy architecture
-* internal service communication
-* startup automation
-* production-style VM orchestration
+The deployed API successfully returns inference responses through the complete microservice chain:
 
-using Terraform and Google Cloud Platform.
+```text
+NGINX
+→ Express API
+→ FastAPI inference service
+```
+
+Validated using:
+
+```bash
+curl -X POST http://PUBLIC_IP/generate \
+-H "Content-Type: application/json" \
+-d '{"prompt":"Explain DevOps"}'
+```
+
+Expected response:
+
+```json
+{
+  "response":"Inference response for: Explain DevOps"
+}
+```
+
+---
+
+## Network Hygiene
+
+Only:
+
+```text
+api-vm
+```
+
+is publicly accessible.
+
+Backend services:
+
+* caller-vm
+* inference-vm
+
+remain private inside the VPC network.
+
+Internal communication occurs only through private IP addresses.
+
+---
+
+## Reproducibility
+
+The infrastructure was tested by:
+
+1. Destroying all resources
+2. Re-running Terraform
+3. Recreating:
+
+   * VPC
+   * firewall rules
+   * NAT gateway
+   * VMs
+   * startup scripts
+   * APIs
+4. Verifying end-to-end API functionality
+
+This confirms the Infrastructure-as-Code deployment works from a clean environment.
+
+---
+
+## Clarity
+
+This README provides:
+
+* repository setup
+* deployment steps
+* debugging steps
+* validation commands
+* architecture explanation
+* infrastructure recreation instructions
+
+allowing another team member to fully redeploy and troubleshoot the system.
 
 ```
 ```
+
 
