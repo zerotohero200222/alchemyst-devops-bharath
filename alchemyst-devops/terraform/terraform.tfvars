@@ -1,0 +1,9 @@
+project_id = "eternal-bruin-489005-u2"
+
+region = "us-central1"
+
+zone = "us-central1-a"
+
+ssh_user = "ubuntu"
+
+ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBp8lt/OBTVp5F/svWlNj+jGXiiVleLqQt52ofNEhyATUc0TIqMpGaKE3Tu/vas1PolDkea7pMaWu+KPMgL1GQ/4+GXpsMNfLuTVwRY0kFUis8z7+8bJGan+cyrKeMnUZyfZmDgjc/vmdn5BzVHDaAFlLYvctn2Ci3PIP8ubADXM70z9fSw3l7QKSNvfxbnMiNLpWYr3Rcz2lRLkRB2c1DEnyT7Fu0CEGO9fo2k5TSaRV+cb6t4DD0294RYBoRjjzBSRiK0TB1CCemiOjlgAJCAIPofTZCGGa1h6SlYuQEz8UeHHQVbGaDL4Hlx5Pkai0ar6FylGm57Z3XMCl5yzdR80npSTCAOQjSUYkNjGBLbBUZU9G4Un1+gp0jZg+Q5uab0OCssGkrw/PkeSQ7vt79u83HzWK45ouFrOKS4GqVDsd8nWKQlLq4vS5blnSRvSF3dS4FNbw1ie6+EyX2GUABzFkSz4ASeIS2Mfhtr4kiVLle0OMm5FUdaEaSOMFKTr7QA1wPUtZfvd5m9CR+JyJYx/jQV5/WRPZCyWa8Q0YTBby+ElyFoOEkIcIp6igHRDirG83D3Ks+fxvSoBwecyLrQqV8LD+a8tx46PuvD20Y0ICn++8VHzwLems+TSLxtnO27NVcxMiLnLWo4/oRsp5oNSJCXjwLlCH+9QbpJpAzaw== gcpbharath58@cs-275605396596-default"
